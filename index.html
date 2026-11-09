@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+
+    <title>ICT 10 Skills Test: Non-Metal Elements</title>
+
+    <style>
+        :root {
+            color-scheme: light;
+            --paper: #f4eedf;
+            --card: #fffaf0;
+            --ink: #202a35;
+            --muted: #68717a;
+            --orange: #ff8b3d;
+            --blue: #bce9e5;
+            --border: 2px solid var(--ink);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 32px 20px;
+            display: grid;
+            place-items: center;
+            background-color: var(--paper);
+            background-image:
+                linear-gradient(#202a350a 1px, transparent 1px),
+                linear-gradient(90deg, #202a350a 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: var(--ink);
+            font-family: "Trebuchet MS", Arial, sans-serif;
+        }
+
+        .page {
+            width: min(100%, 1080px);
+            overflow: hidden;
+            border: 3px solid var(--ink);
+            background: var(--card);
+            box-shadow: 10px 10px 0 var(--ink);
+        }
+
+        .topbar,
+        .footer {
+            min-height: 54px;
+            padding: 13px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.72rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .topbar {
+            border-bottom: 3px solid var(--ink);
+            background: var(--blue);
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 0.9fr;
+        }
+
+        .content {
+            padding: clamp(26px, 5vw, 56px);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 8px 10px;
+            border: var(--border);
+            background: var(--orange);
+            font-size: 0.68rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transform: rotate(-2deg);
+        }
+
+        h1 {
+            margin: 28px 0 14px;
+            font-size: clamp(3rem, 7vw, 5.7rem);
+            font-weight: 1000;
+            letter-spacing: -0.09em;
+            line-height: 0.82;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            max-width: 370px;
+            margin: 23px 0 36px;
+            color: var(--muted);
+            font-size: 1.02rem;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+
+        .search-label {
+            display: block;
+            margin-bottom: 9px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .search {
+            display: flex;
+            border: 3px solid var(--ink);
+            background: white;
+            box-shadow: 4px 4px 0 var(--ink);
+        }
+
+        input {
+            width: 100%;
+            min-width: 0;
+            padding: 15px;
+            border: 0;
+            border-radius: 0;
+            outline: none;
+            background: transparent;
+            color: var(--ink);
+            font: inherit;
+            font-size: 1.05rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        input:focus {
+            box-shadow: inset 0 0 0 3px var(--blue);
+        }
+
+        input::placeholder {
+            color: #84888a;
+            font-weight: 500;
+            text-transform: none;
+        }
+
+        button {
+            padding: 0 20px;
+            border: 0;
+            border-left: 3px solid var(--ink);
+            border-radius: 0;
+            background: var(--orange);
+            color: var(--ink);
+            font: inherit;
+            font-size: 0.8rem;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 140ms ease;
+        }
+
+        button:hover {
+            background: var(--blue);
+        }
+
+        button:focus-visible {
+            outline: 3px solid var(--orange);
+            outline-offset: 3px;
+        }
+
+        .examples {
+            margin: 17px 0 0;
+            color: var(--muted);
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        #result {
+            min-height: 120px;
+            margin-top: 25px;
+            padding: 17px;
+            border: var(--border);
+            background: white;
+            box-shadow: 4px 4px 0 var(--blue);
+            font-size: 0.94rem;
+            font-weight: 700;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .art-panel {
+            position: relative;
+            min-height: 560px;
+            overflow: hidden;
+            border-left: 3px solid var(--ink);
+            background: #ee48a2;
+        }
+
+        .art-panel img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .art-label {
+            position: absolute;
+            right: 18px;
+            bottom: 18px;
+            left: 18px;
+            padding: 13px 15px;
+            border: 3px solid var(--ink);
+            background: var(--blue);
+            box-shadow: 4px 4px 0 var(--ink);
+            font-size: 0.73rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .footer {
+            border-top: 3px solid var(--ink);
+            background: var(--ink);
+            color: var(--paper);
+        }
+
+        @media (max-width: 720px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .art-panel {
+                min-height: 360px;
+                border-top: 3px solid var(--ink);
+                border-left: 0;
+            }
+        }
+
+        @media (max-width: 440px) {
+            body {
+                padding: 18px 14px;
+            }
+
+            .page {
+                box-shadow: 7px 7px 0 var(--ink);
+            }
+
+            .topbar,
+            .footer {
+                flex-wrap: wrap;
+            }
+
+            .search {
+                flex-direction: column;
+            }
+
+            button {
+                min-height: 50px;
+                border-top: 3px solid var(--ink);
+                border-left: 0;
+            }
+
+            .art-panel {
+                min-height: 290px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="page">
+        <header class="topbar">
+            <span>ICT 10 / Skills Test</span>
+            <span>Science field notes · 001</span>
+        </header>
+
+        <div class="layout">
+            <section class="content">
+                <span class="tag">Periodic table information finder</span>
+
+                <h1>Non-metal<br>elements</h1>
+
+                <p class="subtitle">
+                    Enter a symbol to find the element’s name, atomic number, and atomic mass.
+                </p>
+
+                <label class="search-label" for="symbol">Element symbol</label>
+
+                <div class="search">
+                    <input
+                        id="symbol"
+                        type="text"
+                        maxlength="2"
+                        placeholder="Try O or Cl"
+                        autocomplete="off"
+                    >
+                    <button type="button" py-click="find_element">Search</button>
+                </div>
+
+                <p class="examples">Quick examples: H · C · O · Cl · He</p>
+
+                <div id="result" role="status" aria-live="polite">
+                    Your element information will appear here.
+                </div>
+            </section>
+
+            <aside class="art-panel" aria-label="Decorative artwork">
+                <img
+                    src="https://preview.redd.it/angry-bird-listening-gif-v0-61a5c2g471zg1.jpeg?width=498&amp;format=pjpg&amp;auto=webp&amp;s=7e5b56f92511d3b44060e024bab78f014e195a5e"
+                    alt="Bright pink cartoon bird listening with glowing lines around it"
+                >
+            </aside>
+        </div>
+
+        <footer class="footer">
+            <span>Enter a symbol to begin</span>
+            <span>Built for ICT 10</span>
+        </footer>
+    </main>
+
+    <script type="py" src="main.py"></script>
+</body>
+</html>
